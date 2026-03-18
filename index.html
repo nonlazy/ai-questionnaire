@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温州市初中人工智能三阶课程实施问卷</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== 全局样式（保持简洁现代）===== */
+        :root {
+            --primary-color: #2c6ca4;
+            --secondary-color: #3a8bc8;
+            --light-bg: #f5f9ff;
+            --border-color: #d1e3f6;
+            --warning-color: #ffc107;
+            --danger-color: #e74c3c;
+            --success-color: #28a745;
+            --text-color: #333;
+            --light-text: #666;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: #f0f7ff;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--light-text);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .form-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-section h2 i {
+            margin-right: 10px;
+        }
+
+        .section-description {
+            color: var(--light-text);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            padding-left: 5px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .required::after {
+            content: " *";
+            color: var(--danger-color);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background-color: white;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(58, 139, 200, 0.2);
+        }
+
+        .grade-group {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .grade-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .course-toggle {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            padding: 8px 20px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .toggle-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .toggle-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .toggle-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .course-details {
+            display: block;
+        }
+
+        .course-details.hidden {
+            display: none;
+        }
+
+        .reason-field {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .multiselect-container {
+            position: relative;
+        }
+
+        .multiselect-display {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .multiselect-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 6px 6px;
+            z-index: 100;
+            display: none;
+            box-shadow: var(--shadow);
+        }
+
+        .multiselect-dropdown.show {
+            display: block;
+        }
+
+        .multiselect-option {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .multiselect-option:hover {
+            background-color: #f0f7ff;
+        }
+
+        .multiselect-option.selected {
+            background-color: #e1f0fa;
+            font-weight: 500;
+        }
+
+        .selected-count {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+        }
+
+        .other-input {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .other-input.show {
+            display: block;
+        }
+
+        .other-input input {
+            font-size: 0.9rem;
+            padding: 10px 12px;
+            border-left: 3px solid var(--warning-color);
+        }
+
+        .project-card {
+            background-color: #f8fafd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .project-card .remove-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f0f0f0;
+            border: none;
+            color: var(--danger-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .project-card .remove-btn:hover {
+            background: #ffe6e6;
+        }
+
+        .add-project-btn {
+            background: white;
+            border: 2px dashed var(--secondary-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            color: var(--secondary-color);
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: 0.2s;
+        }
+
+        .add-project-btn:hover {
+            background: #e6f0fa;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #235a8c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(44, 108, 164, 0.2);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .modal-content button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        #error-modal .modal-content h3 {
+            color: var(--danger-color);
+        }
+
+        #error-modal .modal-content button {
+            background-color: var(--danger-color);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-group {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-robot" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 10px;"></i>
+                <h1>温州市初中人工智能三阶课程实施问卷</h1>
+            </div>
+        </header>
+
+        <form id="ai-course-survey">
+            <!-- ========== 基本信息 ========== -->
+            <section class="form-section">
+                <h2><i class="fas fa-school"></i> 学校基本信息</h2>
+                <p class="section-description">请填写学校基本信息和填表人信息</p>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="district" class="required">所属区县</label>
+                        <select id="district" name="district" required>
+                            <option value="">请选择所属区县</option>
+                            <option value="市直属">市直属</option>
+                            <option value="鹿城区">鹿城区</option>
+                            <option value="龙湾区">龙湾区</option>
+                            <option value="瓯海区">瓯海区</option>
+                            <option value="洞头区">洞头区</option>
+                            <option value="瑞安市">瑞安市</option>
+                            <option value="乐清市">乐清市</option>
+                            <option value="龙港市">龙港市</option>
+                            <option value="永嘉县">永嘉县</option>
+                            <option value="平阳县">平阳县</option>
+                            <option value="苍南县">苍南县</option>
+                            <option value="文成县">文成县</option>
+                            <option value="泰顺县">泰顺县</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="school-name" class="required">学校名称</label>
+                        <input type="text" id="school-name" name="schoolName" placeholder="请输入学校全称" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contact-name" class="required">填表人姓名</label>
+                        <input type="text" id="contact-name" name="contactName" placeholder="请输入填表人姓名" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-phone" class="required">填表人联系电话</label>
+                        <input type="tel" id="contact-phone" name="contactPhone" placeholder="请输入手机号码" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="student-count" class="required">学生数</label>
+                        <input type="number" id="student-count" name="studentCount" min="0" placeholder="请输入学生总数" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="class-count" class="required">班级数</label>
+                        <input type="number" id="class-count" name="classCount" min="0" placeholder="请输入班级总数" required>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== 教师与教室资源 ========== -->
+            <section class="form-section">
+                <h2><i class="fas fa-chalkboard-teacher"></i> 教师与教室资源</h2>
+                <p class="section-description">请填写人工智能专业教师及专用教室情况</p>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="teacher-count" class="required">现任人工智能专业教师数量</label>
+                        <input type="number" id="teacher-count" name="teacherCount" min="0" placeholder="例如：3" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-background" class="required">专业背景</label>
+                        <!-- 专业背景多选框 -->
+                        <div class="multiselect-container">
+                            <div class="multiselect-display" data-target="teacher-background">
+                                <span class="placeholder">请选择（可多选）</span>
+                                <span class="selected-count">已选择 0 项</span>
+                            </div>
+                            <div class="multiselect-dropdown" id="teacher-background-dropdown"></div>
+                            <select id="teacher-background" name="teacherBackground" multiple style="display: none;"></select>
+                        </div>
+                        <div id="teacher-background-other" class="other-input">
+                            <input type="text" placeholder="请输入其他专业背景">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="computer-rooms" class="required">人工智能（信息科技）教室总数</label>
+                        <input type="number" id="computer-rooms" name="computerRooms" min="0" placeholder="间数" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="old-computers">其中电脑使用年限超过6年的教室数</label>
+                        <input type="number" id="old-computers" name="oldComputers" min="0" placeholder="间数">
+                    </div>
+                    <div class="form-group">
+                        <label for="no-camera">其中未配置摄像头的教室数</label>
+                        <input type="number" id="no-camera" name="noCamera" min="0" placeholder="间数">
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== 初阶课程（七、八、九年级） ========== -->
+            <section class="form-section" id="basic-section">
+                <h2><i class="fas fa-graduation-cap"></i> 初阶普及课程</h2>
+                <p class="section-description">请填写七至九年级初阶普及课程的实施情况。九年级需选择开设形式。</p>
+                <div id="basic-grades-container"></div>
+            </section>
+
+            <!-- ========== 中阶拓展课程（动态项目） ========== -->
+            <section class="form-section">
+                <h2><i class="fas fa-cogs"></i> 中阶拓展课程</h2>
+                <p class="section-description">可以添加多个课程项目，未开设需填写原因</p>
+                
+                <div class="course-toggle">
+                    <div class="toggle-btn active" data-target="intermediate-projects">已开设</div>
+                    <div class="toggle-btn" data-target="intermediate-reason">未开设</div>
+                </div>
+                
+                <div id="intermediate-projects" class="course-details">
+                    <div class="project-card" data-index="0">
+                        <button type="button" class="remove-btn" onclick="removeProject(this, 'intermediate')"><i class="fas fa-times"></i></button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>课程（项目）名称</label>
+                                <input type="text" name="intermediate-name[]" placeholder="" required>
+                            </div>
+                            <div class="form-group">
+                                <label>课程内容简述</label>
+                                <textarea name="intermediate-content[]" rows="2" placeholder="简要描述课程内容" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>参与学生人数</label>
+                                <input type="number" name="intermediate-students[]" min="0" placeholder="人数" required>
+                            </div>
+                            <div class="form-group">
+                                <label>开设年级</label>
+                                <select name="intermediate-grade[]" required>
+                                    <option value="">请选择</option>
+                                    <option value="七年级">七年级</option>
+                                    <option value="八年级">八年级</option>
+                                    <option value="九年级">九年级</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>开设形式</label>
+                                <select name="intermediate-form[]" required>
+                                    <option value="">请选择</option>
+                                    <option value="校本课程">校本课程</option>
+                                    <option value="社团活动">社团活动</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                                <div class="other-input form-other">
+                                    <input type="text" placeholder="请输入其他开设形式">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-project-btn" id="add-intermediate-project">
+                        <i class="fas fa-plus-circle"></i> 添加一个中阶课程项目
+                    </div>
+                </div>
+                
+                <div id="intermediate-reason" class="course-details hidden">
+                    <div class="reason-field">
+                        <label for="intermediate-not-reason">未开设原因</label>
+                        <textarea id="intermediate-not-reason" name="intermediateNotReason" rows="3" placeholder="请简要说明未开设中阶拓展课程的原因"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== 高阶综合课程（动态项目） ========== -->
+            <section class="form-section">
+                <h2><i class="fas fa-rocket"></i> 高阶综合课程</h2>
+                <p class="section-description">可以添加多个课程项目，未开设需填写原因</p>
+                
+                <div class="course-toggle">
+                    <div class="toggle-btn active" data-target="advanced-projects">已开设</div>
+                    <div class="toggle-btn" data-target="advanced-reason">未开设</div>
+                </div>
+                
+                <div id="advanced-projects" class="course-details">
+                    <div class="project-card" data-index="0">
+                        <button type="button" class="remove-btn" onclick="removeProject(this, 'advanced')"><i class="fas fa-times"></i></button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>课程（项目）名称</label>
+                                <input type="text" name="advanced-name[]" placeholder="" required>
+                            </div>
+                            <div class="form-group">
+                                <label>课程内容简述</label>
+                                <textarea name="advanced-content[]" rows="2" placeholder="简要描述课程内容" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>参与学生人数</label>
+                                <input type="number" name="advanced-students[]" min="0" placeholder="人数" required>
+                            </div>
+                            <div class="form-group">
+                                <label>开设年级</label>
+                                <select name="advanced-grade[]" required>
+                                    <option value="">请选择</option>
+                                    <option value="七年级">七年级</option>
+                                    <option value="八年级">八年级</option>
+                                    <option value="九年级">九年级</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>开设形式</label>
+                                <select name="advanced-form[]" required>
+                                    <option value="">请选择</option>
+                                    <option value="竞赛培优课程">竞赛培优课程</option>
+                                    <option value="比赛训练">比赛训练</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                                <div class="other-input form-other">
+                                    <input type="text" placeholder="请输入其他开设形式">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-project-btn" id="add-advanced-project">
+                        <i class="fas fa-plus-circle"></i> 添加一个高阶课程项目
+                    </div>
+                </div>
+                
+                <div id="advanced-reason" class="course-details hidden">
+                    <div class="reason-field">
+                        <label for="advanced-not-reason">未开设原因</label>
+                        <textarea id="advanced-not-reason" name="advancedNotReason" rows="3" placeholder="请简要说明未开设高阶综合课程的原因"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <div class="form-row" style="justify-content: center; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> 提交问卷
+                </button>
+            </div>
+        </form>
+
+        <footer>
+            <p>温州市初中人工智能三阶课程实施情况问卷</p>
+        </footer>
+    </div>
+
+    <!-- 弹窗 -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-check-circle"></i> 问卷已提交</h3>
+            <p>问卷已提交，感谢您的配合！</p>
+            <button id="close-modal">确定</button>
+        </div>
+    </div>
+
+    <div id="error-modal" class="modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-exclamation-circle"></i> 提交失败</h3>
+            <p id="error-message">该学校名称已提交过问卷，每所学校只能提交一次！</p>
+            <button id="close-error-modal">确定</button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- 初中年级配置 ----------
+            const GRADES = [7, 8, 9];
+            const GRADE_NAMES = {7:'七年级',8:'八年级',9:'九年级'};
+            
+            // 下拉选项
+            const softwareOptions = [
+                "Arduino IDE", "App Inventor", "Mixly", "Mind+", "mPython", 
+                "mBlock", "KenRobot", "Scratch", "编程猫", "米思齐", 
+                "慧编程", "腾讯扣叮", "古德微树莓派图形化编程", "浦育平台", "无", "其他"
+            ];
+            const hardwareOptions = [
+                "Arduino", "micro:bit", "掌控板", "乐动掌控", "掌控GO", 
+                "掌控小车", "掌控桌面机器人", "行空板", "树莓派", "麦昆机器人", 
+                "Vortex机器人", "OTTO机器人", "HCRbot机器人", "Max:Bot机器人小车", 
+                "海盗船4WD小车", "小飞机器人", "摄像头", "麦克风", "无", "其他"
+            ];
+            const basicContentOptions = ["体验与感知", "知识与原理", "探索与创新", "安全与伦理"];
+            const teacherBackgroundOptions = ["人工智能", "计算机科学", "教育技术", "其他"];
+
+            // 存储已提交学校
+            let submittedSchools = JSON.parse(localStorage.getItem('submittedSchools') || '[]');
+
+            // ---------- 动态生成初阶HTML（七至九年级）----------
+            function generateBasicHTML() {
+                let html = '';
+                GRADES.forEach(g => {
+                    const gradeName = GRADE_NAMES[g];
+                    html += `
+                        <div class="grade-group">
+                            <div class="grade-title">${gradeName}初阶课程</div>
+                            
+                            <div class="course-toggle">
+                                <div class="toggle-btn active" data-grade="${g}" data-course="basic">已开设</div>
+                                <div class="toggle-btn" data-grade="${g}" data-course="basic">未开设</div>
+                            </div>
+
+                            <div id="basic-grade-${g}-details" class="course-details">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="basic-${g}-hours" class="required">人工智能课时数（本学期）</label>
+                                        <input type="number" id="basic-${g}-hours" name="basicGrade${g}Hours" min="0" placeholder="请输入课时数" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>课程内容所属模块</label>
+                                        ${generateMultiselect(`basic-${g}-content`, basicContentOptions)}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>辅助软件或平台</label>
+                                        ${generateMultiselect(`basic-${g}-software`, softwareOptions)}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>辅助硬件</label>
+                                        ${generateMultiselect(`basic-${g}-hardware`, hardwareOptions)}
+                                    </div>
+                                </div>
+                                ${g === 9 ? `
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="basic-${g}-form" class="required">开设形式</label>
+                                        <select id="basic-${g}-form" name="basicGrade${g}Form" required>
+                                            <option value="">请选择</option>
+                                            <option value="信息科技课程">信息科技课程</option>
+                                            <option value="AI跨学科项目">AI跨学科项目</option>
+                                            <option value="AI相关讲座">AI相关讲座</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                        <div id="basic-${g}-form-other" class="other-input">
+                                            <input type="text" placeholder="请输入其他开设形式">
+                                        </div>
+                                    </div>
+                                </div>` : ''}
+                            </div>
+
+                            <div id="basic-grade-${g}-reason" class="course-details hidden">
+                                <div class="reason-field">
+                                    <label for="basic-${g}-not-reason">未开设原因</label>
+                                    <textarea id="basic-${g}-not-reason" name="basicGrade${g}NotReason" rows="3" placeholder="请简要说明未开设初阶课程的原因"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                return html;
+            }
+
+            function generateMultiselect(id, options) {
+                let html = `
+                    <div class="multiselect-container">
+                        <div class="multiselect-display" data-target="${id}">
+                            <span class="placeholder">请选择（可多选）</span>
+                            <span class="selected-count">已选择 0 项</span>
+                        </div>
+                        <div class="multiselect-dropdown" id="${id}-dropdown"></div>
+                        <select id="${id}" name="${id}" multiple style="display: none;">`;
+                options.forEach(opt => {
+                    html += `<option value="${opt}">${opt}</option>`;
+                });
+                html += `</select></div><div id="${id}-other" class="other-input"><input type="text" placeholder="请输入其他内容"></div>`;
+                return html;
+            }
+
+            document.getElementById('basic-grades-container').innerHTML = generateBasicHTML();
+
+            // ---------- 初始化多选框（通用）----------
+            function initMultiselects() {
+                document.querySelectorAll('.multiselect-display').forEach(display => {
+                    const targetId = display.getAttribute('data-target');
+                    const dropdown = document.getElementById(`${targetId}-dropdown`);
+                    const hiddenSelect = document.getElementById(targetId);
+                    if (!dropdown || !hiddenSelect) return;
+
+                    const isSoftware = targetId.includes('software');
+                    const isHardware = targetId.includes('hardware');
+                    const isContent = targetId.includes('content');
+                    const isTeacherBg = targetId === 'teacher-background';
+                    let options = [];
+                    if (isSoftware) options = softwareOptions;
+                    else if (isHardware) options = hardwareOptions;
+                    else if (isContent) options = basicContentOptions;
+                    else if (isTeacherBg) options = teacherBackgroundOptions;
+                    else return;
+
+                    dropdown.innerHTML = '';
+                    hiddenSelect.innerHTML = '';
+
+                    options.forEach(option => {
+                        const optionEl = document.createElement('option');
+                        optionEl.value = option;
+                        optionEl.textContent = option;
+                        hiddenSelect.appendChild(optionEl);
+
+                        const dropdownOption = document.createElement('div');
+                        dropdownOption.className = 'multiselect-option';
+                        dropdownOption.textContent = option;
+                        dropdownOption.dataset.value = option;
+
+                        dropdownOption.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const value = this.dataset.value;
+                            const selectOption = hiddenSelect.querySelector(`option[value="${value}"]`);
+                            selectOption.selected = !selectOption.selected;
+                            this.classList.toggle('selected', selectOption.selected);
+
+                            if (value === '其他') {
+                                const otherInput = document.getElementById(`${targetId}-other`);
+                                if (otherInput) otherInput.classList.toggle('show', selectOption.selected);
+                            }
+                            updateMultiselectDisplay(display, hiddenSelect);
+                        });
+
+                        dropdown.appendChild(dropdownOption);
+                    });
+
+                    display.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const isOpen = dropdown.classList.contains('show');
+                        document.querySelectorAll('.multiselect-dropdown.show').forEach(d => {
+                            if (d !== dropdown) d.classList.remove('show');
+                        });
+                        dropdown.classList.toggle('show', !isOpen);
+                    });
+
+                    updateMultiselectDisplay(display, hiddenSelect);
+                });
+
+                document.addEventListener('click', () => {
+                    document.querySelectorAll('.multiselect-dropdown.show').forEach(d => d.classList.remove('show'));
+                });
+            }
+
+            function updateMultiselectDisplay(display, hiddenSelect) {
+                const selected = Array.from(hiddenSelect.selectedOptions);
+                const placeholder = display.querySelector('.placeholder');
+                const count = display.querySelector('.selected-count');
+                if (selected.length === 0) {
+                    placeholder.textContent = display.dataset.placeholder || '请选择（可多选）';
+                    count.textContent = '已选择 0 项';
+                } else {
+                    count.textContent = `已选择 ${selected.length} 项`;
+                    const texts = selected.slice(0, 3).map(opt => opt.text);
+                    placeholder.textContent = selected.length > 3 ? `${texts.join(', ')} 等${selected.length}项` : texts.join(', ');
+                }
+            }
+
+            // ---------- 课程切换（初阶按年级，中阶/高阶整体）----------
+            function initCourseToggles() {
+                document.querySelectorAll('.grade-group .toggle-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const grade = this.dataset.grade;
+                        const courseType = this.dataset.course;
+                        const toggleGroup = this.parentElement;
+                        toggleGroup.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        const isOpened = this.textContent === '已开设';
+                        const details = document.getElementById(`${courseType}-grade-${grade}-details`);
+                        const reason = document.getElementById(`${courseType}-grade-${grade}-reason`);
+                        if (details) details.classList.toggle('hidden', !isOpened);
+                        if (reason) reason.classList.toggle('hidden', isOpened);
+                        details.querySelectorAll('[required]').forEach(field => field.required = isOpened);
+                    });
+                });
+
+                document.querySelectorAll('.form-section .course-toggle .toggle-btn').forEach(btn => {
+                    if (btn.closest('.grade-group')) return;
+                    btn.addEventListener('click', function() {
+                        const targetId = this.dataset.target;
+                        const toggleGroup = this.parentElement;
+                        toggleGroup.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        if (targetId === 'intermediate-projects' || targetId === 'advanced-projects') {
+                            document.getElementById(targetId).classList.remove('hidden');
+                            document.getElementById(targetId).querySelectorAll('input, select, textarea').forEach(field => {
+                                if (!field.closest('.other-input')) {
+                                    field.setAttribute('required', 'required');
+                                }
+                            });
+                            const reasonId = targetId === 'intermediate-projects' ? 'intermediate-reason' : 'advanced-reason';
+                            document.getElementById(reasonId).classList.add('hidden');
+                            document.getElementById(reasonId).querySelectorAll('textarea').forEach(field => {
+                                field.required = false;
+                            });
+                        } else if (targetId === 'intermediate-reason' || targetId === 'advanced-reason') {
+                            document.getElementById(targetId).classList.remove('hidden');
+                            document.getElementById(targetId).querySelectorAll('textarea').forEach(field => {
+                                field.setAttribute('required', 'required');
+                            });
+                            const projectsId = targetId === 'intermediate-reason' ? 'intermediate-projects' : 'advanced-projects';
+                            document.getElementById(projectsId).classList.add('hidden');
+                            document.getElementById(projectsId).querySelectorAll('input, select, textarea').forEach(field => {
+                                field.required = false;
+                            });
+                        }
+                    });
+                });
+            }
+
+            // ---------- 其他输入框显示（九年级开设形式、项目中的其他）----------
+            function initOtherInputs() {
+                GRADES.forEach(g => {
+                    if (g === 9) {
+                        const formSelect = document.getElementById(`basic-${g}-form`);
+                        const formOther = document.getElementById(`basic-${g}-form-other`);
+                        if (formSelect) {
+                            formSelect.addEventListener('change', () => {
+                                formOther.classList.toggle('show', formSelect.value === '其他');
+                            });
+                        }
+                    }
+                });
+
+                document.addEventListener('change', (e) => {
+                    if (e.target.matches('select[name="intermediate-form[]"], select[name="advanced-form[]"]')) {
+                        const otherDiv = e.target.closest('.form-group').querySelector('.form-other');
+                        if (otherDiv) {
+                            otherDiv.classList.toggle('show', e.target.value === '其他');
+                        }
+                    }
+                });
+            }
+
+            // ---------- 动态添加/移除项目 ----------
+            window.removeProject = function(btn, type) {
+                const card = btn.closest('.project-card');
+                card.remove();
+            };
+
+            function initProjectAdd() {
+                document.getElementById('add-intermediate-project').addEventListener('click', () => {
+                    const container = document.getElementById('intermediate-projects');
+                    const newCard = document.createElement('div');
+                    newCard.className = 'project-card';
+                    newCard.innerHTML = `
+                        <button type="button" class="remove-btn" onclick="removeProject(this, 'intermediate')"><i class="fas fa-times"></i></button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>课程（项目）名称</label>
+                                <input type="text" name="intermediate-name[]" placeholder="例如：AI编程社团" required>
+                            </div>
+                            <div class="form-group">
+                                <label>课程内容简述</label>
+                                <textarea name="intermediate-content[]" rows="2" placeholder="简要描述课程内容" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>参与学生人数</label>
+                                <input type="number" name="intermediate-students[]" min="0" placeholder="人数" required>
+                            </div>
+                            <div class="form-group">
+                                <label>开设年级</label>
+                                <select name="intermediate-grade[]" required>
+                                    <option value="">请选择</option>
+                                    <option value="七年级">七年级</option>
+                                    <option value="八年级">八年级</option>
+                                    <option value="九年级">九年级</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>开设形式</label>
+                                <select name="intermediate-form[]" required>
+                                    <option value="">请选择</option>
+                                    <option value="校本课程">校本课程</option>
+                                    <option value="社团活动">社团活动</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                                <div class="other-input form-other">
+                                    <input type="text" placeholder="请输入其他开设形式">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.insertBefore(newCard, document.getElementById('add-intermediate-project'));
+                });
+
+                document.getElementById('add-advanced-project').addEventListener('click', () => {
+                    const container = document.getElementById('advanced-projects');
+                    const newCard = document.createElement('div');
+                    newCard.className = 'project-card';
+                    newCard.innerHTML = `
+                        <button type="button" class="remove-btn" onclick="removeProject(this, 'advanced')"><i class="fas fa-times"></i></button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>课程（项目）名称</label>
+                                <input type="text" name="advanced-name[]" placeholder="例如：机器人竞赛队" required>
+                            </div>
+                            <div class="form-group">
+                                <label>课程内容简述</label>
+                                <textarea name="advanced-content[]" rows="2" placeholder="简要描述课程内容" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>参与学生人数</label>
+                                <input type="number" name="advanced-students[]" min="0" placeholder="人数" required>
+                            </div>
+                            <div class="form-group">
+                                <label>开设年级</label>
+                                <select name="advanced-grade[]" required>
+                                    <option value="">请选择</option>
+                                    <option value="七年级">七年级</option>
+                                    <option value="八年级">八年级</option>
+                                    <option value="九年级">九年级</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>开设形式</label>
+                                <select name="advanced-form[]" required>
+                                    <option value="">请选择</option>
+                                    <option value="竞赛培优课程">竞赛培优课程</option>
+                                    <option value="比赛训练">比赛训练</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                                <div class="other-input form-other">
+                                    <input type="text" placeholder="请输入其他开设形式">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.insertBefore(newCard, document.getElementById('add-advanced-project'));
+                });
+            }
+
+            // ---------- 数据收集（适配初中结构）----------
+            function collectFormData() {
+                const data = {};
+
+                data.district = document.getElementById('district').value;
+                data.schoolName = document.getElementById('school-name').value;
+                data.contactName = document.getElementById('contact-name').value;
+                data.contactPhone = document.getElementById('contact-phone').value;
+                data.studentCount = document.getElementById('student-count').value;
+                data.classCount = document.getElementById('class-count').value;
+
+                data.teacherCount = document.getElementById('teacher-count').value;
+                const bgSelect = document.getElementById('teacher-background');
+                let teacherBgValues = Array.from(bgSelect.selectedOptions).map(opt => opt.value);
+                const bgOtherInput = document.getElementById('teacher-background-other');
+                if (bgOtherInput.classList.contains('show')) {
+                    const otherVal = bgOtherInput.querySelector('input').value.trim();
+                    if (otherVal) {
+                        const otherIndex = teacherBgValues.indexOf('其他');
+                        if (otherIndex !== -1) teacherBgValues[otherIndex] = `其他：${otherVal}`;
+                    }
+                }
+                data.teacherBackground = teacherBgValues;
+
+                data.computerRooms = document.getElementById('computer-rooms').value;
+                data.oldComputers = document.getElementById('old-computers').value;
+                data.noCamera = document.getElementById('no-camera').value;
+
+                // 初阶课程
+                GRADES.forEach(g => {
+                    const key = `basicGrade${g}`;
+                    data[key] = {};
+
+                    const activeBtn = document.querySelector(`.grade-group .toggle-btn[data-grade="${g}"][data-course="basic"].active`);
+                    const isOpened = activeBtn ? activeBtn.textContent === '已开设' : true;
+                    data[key].isOpened = isOpened;
+
+                    if (isOpened) {
+                        data[key].hours = document.getElementById(`basic-${g}-hours`)?.value || '';
+
+                        const contentSelect = document.getElementById(`basic-${g}-content`);
+                        if (contentSelect) {
+                            data[key].content = Array.from(contentSelect.selectedOptions).map(opt => opt.value);
+                            const contentOther = document.getElementById(`basic-${g}-content-other`);
+                            if (contentOther && contentOther.classList.contains('show')) {
+                                const otherVal = contentOther.querySelector('input')?.value.trim();
+                                if (otherVal) {
+                                    const idx = data[key].content.indexOf('其他');
+                                    if (idx !== -1) data[key].content[idx] = `其他：${otherVal}`;
+                                }
+                            }
+                        }
+
+                        const softwareSelect = document.getElementById(`basic-${g}-software`);
+                        if (softwareSelect) {
+                            data[key].software = Array.from(softwareSelect.selectedOptions).map(opt => opt.value);
+                            const softwareOther = document.getElementById(`basic-${g}-software-other`);
+                            if (softwareOther && softwareOther.classList.contains('show')) {
+                                const otherVal = softwareOther.querySelector('input')?.value.trim();
+                                if (otherVal) {
+                                    const idx = data[key].software.indexOf('其他');
+                                    if (idx !== -1) data[key].software[idx] = `其他：${otherVal}`;
+                                }
+                            }
+                        }
+
+                        const hardwareSelect = document.getElementById(`basic-${g}-hardware`);
+                        if (hardwareSelect) {
+                            data[key].hardware = Array.from(hardwareSelect.selectedOptions).map(opt => opt.value);
+                            const hardwareOther = document.getElementById(`basic-${g}-hardware-other`);
+                            if (hardwareOther && hardwareOther.classList.contains('show')) {
+                                const otherVal = hardwareOther.querySelector('input')?.value.trim();
+                                if (otherVal) {
+                                    const idx = data[key].hardware.indexOf('其他');
+                                    if (idx !== -1) data[key].hardware[idx] = `其他：${otherVal}`;
+                                }
+                            }
+                        }
+
+                        if (g === 9) {
+                            const formSelect = document.getElementById(`basic-${g}-form`);
+                            if (formSelect) {
+                                let formVal = formSelect.value;
+                                if (formVal === '其他') {
+                                    const otherInput = document.getElementById(`basic-${g}-form-other`)?.querySelector('input')?.value.trim();
+                                    if (otherInput) formVal = `其他：${otherInput}`;
+                                }
+                                data[key].form = formVal;
+                            }
+                        }
+                    } else {
+                        data[key].reason = document.getElementById(`basic-${g}-not-reason`)?.value || '';
+                    }
+                });
+
+                // 中阶课程
+                const intermediateToggle = document.querySelector('#intermediate-projects').classList.contains('hidden') ? 'reason' : 'projects';
+                if (intermediateToggle === 'reason') {
+                    data.intermediateCourses = { isOpened: false, reason: document.getElementById('intermediate-not-reason').value };
+                } else {
+                    const projects = [];
+                    document.querySelectorAll('#intermediate-projects .project-card').forEach(card => {
+                        const nameInput = card.querySelector('input[name="intermediate-name[]"]');
+                        const contentTextarea = card.querySelector('textarea[name="intermediate-content[]"]');
+                        const studentsInput = card.querySelector('input[name="intermediate-students[]"]');
+                        const gradeSelect = card.querySelector('select[name="intermediate-grade[]"]');
+                        const formSelect = card.querySelector('select[name="intermediate-form[]"]');
+                        
+                        let formVal = formSelect.value;
+                        if (formVal === '其他') {
+                            const otherInput = card.querySelector('.form-other input')?.value.trim();
+                            if (otherInput) formVal = `其他：${otherInput}`;
+                        }
+
+                        projects.push({
+                            name: nameInput.value,
+                            content: contentTextarea.value,
+                            students: studentsInput.value,
+                            grade: gradeSelect.value,
+                            form: formVal
+                        });
+                    });
+                    data.intermediateCourses = { isOpened: true, projects: projects };
+                }
+
+                // 高阶课程
+                const advancedToggle = document.querySelector('#advanced-projects').classList.contains('hidden') ? 'reason' : 'projects';
+                if (advancedToggle === 'reason') {
+                    data.advancedCourses = { isOpened: false, reason: document.getElementById('advanced-not-reason').value };
+                } else {
+                    const projects = [];
+                    document.querySelectorAll('#advanced-projects .project-card').forEach(card => {
+                        const nameInput = card.querySelector('input[name="advanced-name[]"]');
+                        const contentTextarea = card.querySelector('textarea[name="advanced-content[]"]');
+                        const studentsInput = card.querySelector('input[name="advanced-students[]"]');
+                        const gradeSelect = card.querySelector('select[name="advanced-grade[]"]');
+                        const formSelect = card.querySelector('select[name="advanced-form[]"]');
+                        
+                        let formVal = formSelect.value;
+                        if (formVal === '其他') {
+                            const otherInput = card.querySelector('.form-other input')?.value.trim();
+                            if (otherInput) formVal = `其他：${otherInput}`;
+                        }
+
+                        projects.push({
+                            name: nameInput.value,
+                            content: contentTextarea.value,
+                            students: studentsInput.value,
+                            grade: gradeSelect.value,
+                            form: formVal
+                        });
+                    });
+                    data.advancedCourses = { isOpened: true, projects: projects };
+                }
+
+                return data;
+            }
+
+            // ---------- 重置表单 ----------
+            function resetForm() {
+                document.getElementById('ai-course-survey').reset();
+
+                document.querySelectorAll('.multiselect-display').forEach(display => {
+                    const targetId = display.getAttribute('data-target');
+                    const select = document.getElementById(targetId);
+                    if (!select) return;
+                    Array.from(select.options).forEach(opt => opt.selected = false);
+                    updateMultiselectDisplay(display, select);
+                    const otherInput = document.getElementById(`${targetId}-other`);
+                    if (otherInput) {
+                        otherInput.classList.remove('show');
+                        otherInput.querySelector('input').value = '';
+                    }
+                });
+
+                document.querySelectorAll('.grade-group .course-toggle').forEach(toggle => {
+                    const btns = toggle.querySelectorAll('.toggle-btn');
+                    btns.forEach(btn => btn.classList.remove('active'));
+                    btns[0].classList.add('active');
+                    const grade = btns[0].dataset.grade;
+                    const courseType = btns[0].dataset.course;
+                    const details = document.getElementById(`${courseType}-grade-${grade}-details`);
+                    const reason = document.getElementById(`${courseType}-grade-${grade}-reason`);
+                    if (details) details.classList.remove('hidden');
+                    if (reason) reason.classList.add('hidden');
+                });
+
+                document.querySelectorAll('.form-section .course-toggle').forEach(toggle => {
+                    if (!toggle.closest('.grade-group')) {
+                        const btns = toggle.querySelectorAll('.toggle-btn');
+                        btns.forEach(btn => btn.classList.remove('active'));
+                        btns[0].classList.add('active');
+                        const target = btns[0].dataset.target;
+                        if (target) {
+                            document.getElementById(target).classList.remove('hidden');
+                            const otherId = target === 'intermediate-projects' ? 'intermediate-reason' : 
+                                            (target === 'advanced-projects' ? 'advanced-reason' : null);
+                            if (otherId) document.getElementById(otherId).classList.add('hidden');
+                            
+                            document.getElementById(target).querySelectorAll('input, select, textarea').forEach(field => {
+                                if (!field.closest('.other-input')) {
+                                    field.setAttribute('required', 'required');
+                                }
+                            });
+                            if (otherId) {
+                                document.getElementById(otherId).querySelectorAll('textarea').forEach(field => {
+                                    field.required = false;
+                                });
+                            }
+                        }
+                    }
+                });
+
+                // 重置项目列表（保留一个默认项目）
+                ['intermediate-projects', 'advanced-projects'].forEach(id => {
+                    const container = document.getElementById(id);
+                    const cards = container.querySelectorAll('.project-card');
+                    cards.forEach(card => card.remove());
+                    const defaultCard = document.createElement('div');
+                    defaultCard.className = 'project-card';
+                    const isIntermediate = id === 'intermediate-projects';
+                    defaultCard.innerHTML = `
+                        <button type="button" class="remove-btn" onclick="removeProject(this, '${isIntermediate ? 'intermediate' : 'advanced'}')"><i class="fas fa-times"></i></button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>课程（项目）名称</label>
+                                <input type="text" name="${isIntermediate ? 'intermediate-name[]' : 'advanced-name[]'}" placeholder="${isIntermediate ? '例如：AI编程社团' : '例如：机器人竞赛队'}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>课程内容简述</label>
+                                <textarea name="${isIntermediate ? 'intermediate-content[]' : 'advanced-content[]'}" rows="2" placeholder="简要描述课程内容" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>参与学生人数</label>
+                                <input type="number" name="${isIntermediate ? 'intermediate-students[]' : 'advanced-students[]'}" min="0" placeholder="人数" required>
+                            </div>
+                            <div class="form-group">
+                                <label>开设年级</label>
+                                <select name="${isIntermediate ? 'intermediate-grade[]' : 'advanced-grade[]'}" required>
+                                    <option value="">请选择</option>
+                                    <option value="七年级">七年级</option>
+                                    <option value="八年级">八年级</option>
+                                    <option value="九年级">九年级</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>开设形式</label>
+                                <select name="${isIntermediate ? 'intermediate-form[]' : 'advanced-form[]'}" required>
+                                    ${isIntermediate ? 
+                                        '<option value="校本课程">校本课程</option><option value="社团活动">社团活动</option><option value="其他">其他</option>' : 
+                                        '<option value="竞赛培优课程">竞赛培优课程</option><option value="比赛训练">比赛训练</option><option value="其他">其他</option>'}
+                                </select>
+                                <div class="other-input form-other">
+                                    <input type="text" placeholder="请输入其他开设形式">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.insertBefore(defaultCard, document.getElementById(`add-${id}`));
+                });
+
+                document.querySelectorAll('.other-input').forEach(div => div.classList.remove('show'));
+            }
+
+            // ---------- 提交逻辑 ----------
+            function initFormSubmit() {
+                const form = document.getElementById('ai-course-survey');
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const schoolName = document.getElementById('school-name').value.trim();
+                    if (submittedSchools.includes(schoolName)) {
+                        document.getElementById('error-modal').style.display = 'flex';
+                        return;
+                    }
+
+                    try {
+                        const formData = collectFormData();
+                        const response = await fetch('https://quickform.cn/api/QJJi_O7pVYA', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(formData)
+                        });
+
+                        if (response.ok) {
+                            submittedSchools.push(schoolName);
+                            localStorage.setItem('submittedSchools', JSON.stringify(submittedSchools));
+                            document.getElementById('success-modal').style.display = 'flex';
+                            resetForm();
+                        } else {
+                            throw new Error('提交失败，请稍后重试');
+                        }
+                    } catch (error) {
+                        document.getElementById('error-message').textContent = error.message;
+                        document.getElementById('error-modal').style.display = 'flex';
+                    }
+                });
+            }
+
+            // ---------- 弹窗初始化 ----------
+            function initModal() {
+                const successModal = document.getElementById('success-modal');
+                document.getElementById('close-modal').addEventListener('click', () => successModal.style.display = 'none');
+                const errorModal = document.getElementById('error-modal');
+                document.getElementById('close-error-modal').addEventListener('click', () => errorModal.style.display = 'none');
+                window.addEventListener('click', (e) => {
+                    if (e.target === successModal) successModal.style.display = 'none';
+                    if (e.target === errorModal) errorModal.style.display = 'none';
+                });
+            }
+
+            // ---------- 启动 ----------
+            document.addEventListener('DOMContentLoaded', function() {
+                initMultiselects();
+                initCourseToggles();
+                initOtherInputs();
+                initProjectAdd();
+                initFormSubmit();
+                initModal();
+            });
+        })();
+    </script>
+</body>
+</html>
